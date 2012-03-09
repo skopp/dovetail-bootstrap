@@ -22,10 +22,8 @@ NUGET_FEEDS = ["#{DOVETAILSDK_PATH}", "https://go.microsoft.com/fwlink/?LinkID=2
 
 puts "Loading scripts from build support directory..."
 buildsupportfiles = Dir["#{File.dirname(__FILE__)}/buildsupport/*.rb"]
-buildsupportfiles.each { |ext| 
-	puts "loading #{ext}" 
-	load ext 
-}
+raise "Run `git submodule update --init` to populate your buildsupport folder." unless buildsupportfiles.any?
+buildsupportfiles.each { |ext| load ext }
 
 props = {:archive => "build", :testing => "results", :database => ""}
 
@@ -46,7 +44,7 @@ task :build_release do
 end
 
 desc "build solution"
-task :compile => [:version, "nuget:install"] do |t, args|
+task :compile => [:version] do |t, args|
 	target = args[:target] || :DEBUG
  
 	puts "Doing #{target} build" 
@@ -105,43 +103,7 @@ def findNunitConsoleExe
 	return File.join(nunitPackageDirectory, 'tools/nunit-console.exe')
 end
 
-namespace :nuget do
 
-	desc "Run nuget update on all the projects"
-	task :update => [:clean] do 
-		Dir.glob(File.join("**","packages.config")){ |file|
-			puts "Updating packages for #{file}"
-			sh "#{NUGET_EXE} update #{file} -RepositoryPath source/packages"
-		}
-	end
-			
-	desc "Run nuget install on all projects"
-	task :install => [:clean] do 
-		Dir.glob(File.join("**","packages.config")){ |file|
-			packagesDir = File.absolute_path("source/packages").gsub('/','\\')
-			packagesConfig = File.absolute_path(file)
-			puts "Updating packages for #{packagesConfig}"
-			sh "#{NUGET_EXE} install #{packagesConfig} -OutputDirectory #{packagesDir} -Source \"#{NUGET_FEEDS.join(";")}\""
-		}
-	end
-
-	desc "Build nuget packages"
-	task :build => [:build_release] do 
-		FileUtils.mkdir_p("results/packages")
-		packagesDir = File.absolute_path("results/packages")
-		Dir.glob(File.join("**","*.nuspec")){ |file|
-			puts "Building nuget package for #{file}"
-			projectPath = File.dirname(file)
-			Dir.chdir(projectPath) do 
-				puts "in project path #{projectPath}"
-				sh "#{NUGET_EXE} pack -OutputDirectory #{packagesDir} -Prop Configuration=Release -Symbols"
-			end		
-		}
-	end
-
-	desc "Deploy nuget packages. Expectes you to define your own 'deploy_nuget_packages' task in the buildsupport directory"
-	task :deploy => [:default,"nuget:build",:deploy_nuget_packages]
-end 
 
 namespace :setup do 
 

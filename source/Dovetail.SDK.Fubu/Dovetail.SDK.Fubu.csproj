@@ -109,7 +109,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Dovetail.SDK.Fubu.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

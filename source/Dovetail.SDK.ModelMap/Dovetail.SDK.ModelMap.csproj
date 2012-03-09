@@ -129,7 +129,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Dovetail.SDK.ModelMap.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

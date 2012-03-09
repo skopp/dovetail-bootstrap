@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>$id$</id>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Dovetail.SDK.ModelMap</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>Kevin Miller, Gary Sherman</authors>
     <owners>Dovetail Software Inc.</owners>
     <licenseUrl>https://github.com/DovetailSoftware/dovetail-bootstrap/blob/master/license.txt</licenseUrl>
-    <projectUrl>https://github.com/DovetailSoftware/dovetail-bootstrap/tree/master/source/Dovetail.SDK.Bootstrap</projectUrl>
+    <projectUrl>https://github.com/DovetailSoftware/dovetail-bootstrap/tree/master/source/Dovetail.SDK.ModelMap</projectUrl>
     <iconUrl>http://www.dovetailsoftware.com/logo/logo.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
@@ -15,6 +15,6 @@
     <tags>Clarify</tags>
     <dependencies>
       <dependency id="Dovetail.SDK.Bootstrap"/>
-    </dependencies>
-  </metadata>  
+    </dependencies>      
+  </metadata>
 </package>
